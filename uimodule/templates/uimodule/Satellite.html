@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <title>Triple-E Controlling System</title>
+    <link rel="stylesheet" href="{% static 'css/satellite.css' %}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+  </head>
+  <body>
+    <div id="maintable">
+      <div id= "cansats">
+        <div id="header">
+          <div id = "header1">
+            <tt>Triple-E Controlling System</tt>
+          </div>
+          <div id = "header2">
+            <select name="selectedSensor">
+              <option value="GPS" selected"selected">GPS</option>
+              <option value="GYRO">Gyroscope</option>
+              <option value="CAM">Camera</option>
+              <option value="BAR">Barometer</option>
+              <option value="TEM">Temperature</option>
+            </select>
+          </div>
+        </div>
+        <div id = "cansat1">
+          {% for satellite in satellites %}
+            {% if forloop.first %}
+            <div>
+              <p> Updated Time : {{ satellite.updated_time }}</p>
+              <p> Device Name : {{ satellite.name}}</p>
+              <p> Current Gyro : {{satellite.gyroX}}  {{satellite.gyroY}}  {{satellite.gyroZ}}</p>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div id = "cansat2">
+          {% for satellite in satellites %}
+            {% if forloop.last %}
+              {% if forloop.counter == 2 %}
+              <div>
+                <p> Updated Time : {{ satellite.updated_time }}</p>
+                <p>  Device Name : {{ satellite.name}}</p>
+                <p> Current Gyro : {{satellite.gyroX}}  {{satellite.gyroY}}  {{satellite.gyroZ}}</p>
+              </div>
+              {% else %}
+              <p>Second Device is OffLine</p>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
